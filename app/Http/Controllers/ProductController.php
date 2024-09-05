@@ -32,10 +32,22 @@ class ProductController extends Controller
             'description' => 'nullable|min:3',
             'size' => 'required|decimal:0,2|max:100'
         ]);
-        
+
         Product::create($request->input());
 
         return redirect()->route('products.index');
 
+    }
+
+    public function show(string $id)
+    {
+
+        $product = Product::findOrFail($id);
+
+        // if($product === null){
+        //     abort(404);
+        // }
+                        
+        return view('products.show', compact('product'));
     }
 }
