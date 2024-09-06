@@ -39,15 +39,19 @@ class ProductController extends Controller
 
     }
 
-    public function show(string $id)
+    public function show(Product $product)
     {
-
-        $product = Product::findOrFail($id);
-
-        // if($product === null){
-        //     abort(404);
-        // }
-                        
+        // $product = Product::findOrFail($id);                        
         return view('products.show', compact('product'));
+    }
+
+    public function edit(Product $product)
+    {
+        return view('products.edit', compact('product'));
+    }
+
+    public function update(Request $request, Product $product)
+    {
+        
     }
 }

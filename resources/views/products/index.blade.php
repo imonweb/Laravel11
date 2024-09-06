@@ -6,7 +6,7 @@
 
 @foreach ($products as $product)
 
-    <h2>{{ $product->name }}</h2>
+    <h2><a href="{{ route('products.show', $product->id) }}">{{ $product->name }}</a></h2>
     <p>{{ htmlspecialchars( $product->description ) }}</p>
     <p>{{ htmlspecialchars( $product->size ) }}</p>
 
