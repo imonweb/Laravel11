@@ -50,4 +50,12 @@ class ProductController extends Controller
         $product->update($request->validated());
         return redirect()->route('products.show', $product);
     }
+
+    public function destroy(Product $product)
+    {
+        $product->delete();
+        
+        return redirect()->route('products.index')
+            ->with('status', 'Product deleted');
+    }
 }
