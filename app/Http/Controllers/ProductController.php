@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Http\Requests\SaveProductRequest;
 
 class ProductController extends Controller
 {
@@ -24,18 +25,12 @@ class ProductController extends Controller
         return view('products.create');
     }
 
-    public function store(Request $request)
+    public function store(SaveProductRequest $request)
     {
-        
-        $request->validate([
-            'name' => 'required|max:100',
-            'description' => 'nullable|min:3',
-            'size' => 'required|decimal:0,2|max:100'
-        ]);
 
-        Product::create($request->input());
+        $product = Product::create($request->validated());
 
-        return redirect()->route('products.index');
+        return redirect()->route('products.show', $product);
 
     }
 
@@ -50,8 +45,9 @@ class ProductController extends Controller
         return view('products.edit', compact('product'));
     }
 
-    public function update(Request $request, Product $product)
+    public function update(SaveProductRequest $request, Product $product)
     {
-        
+        $product->update($request->validated());
+        return redirect()->route('products.show', $product);
     }
 }
